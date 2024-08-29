@@ -19,3 +19,11 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 * Feature 13 - Server-side service discovery and load balancing using Kubernetes
 * Feature 14 - Deploying microservices into cloud K8s cluster
 * Feature 15 - Introduction to K8s Ingress, Service Mesh (Istio) & mTLS
+
+
+## Swagger endpoints
+### Customer Microservice Swagger endpoint:
+```http://localhost:8080/swagger-ui/index.html
+
+### Loans Microservice Swagger endpoint:
+```http://localhost:8090/swagger-ui/index.html
