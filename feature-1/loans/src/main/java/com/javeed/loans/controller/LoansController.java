@@ -1,8 +1,8 @@
-package com.javeed.customer.controller;
+package com.javeed.loans.controller;
 
-import com.javeed.customer.constants.*;
-import com.javeed.customer.dto.*;
-import com.javeed.customer.service.*;
+import com.javeed.loans.constants.*;
+import com.javeed.loans.dto.*;
+import com.javeed.loans.service.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
@@ -15,20 +15,19 @@ import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(
-        name = "CRUD REST APIs for Customer in CustomerLoans Applications",
-        description = "CRUD REST APIs in Customer to CREATE, UPDATE, FETCH AND DELETE Customer details"
+        name = "CRUD REST APIs for Loans within CustomerLoans Applications",
+        description = "CRUD REST APIs in Loans to CREATE, UPDATE, FETCH AND DELETE loan details"
 )
 @RestController
-@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
-public class CustomerController {
-
-    private ICustomerService iCustomerService;
+@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+public class LoansController {
+    private ILoansService iLoansService;
 
     @Operation(
-            summary = "Create Customer REST API",
-            description = "REST API to create new Customer inside Customer Application"
+            summary = "Create Loan REST API",
+            description = "REST API to create new loan within Loans application"
     )
     @ApiResponses({
             @ApiResponse(
@@ -44,57 +43,50 @@ public class CustomerController {
             )
     }
     )
-    /*
-    Ex: http://localhost:8080/api/create
-    Method:Post
-    Body:
-    {
-    "name": "Javeed",
-    "email": "Javeed@nodomain.com",
-    "mobileNumber": "1234567890"
-    }
-     */
-    @PostMapping(path = "/create")
-    public ResponseEntity<ResponseDto> createCustomer(@Valid @RequestBody CustomerDto customerDto) {
-        iCustomerService.createCustomer(customerDto);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(new ResponseDto(CustomerConstants.STATUS_201, CustomerConstants.MESSAGE_201));
-    }
-
-    @Operation(
-            summary = "Fetch Customer Details REST API",
-            description = "REST API to fetch Customer details based on a mobile number"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "HTTP Status OK"
-            ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "HTTP Status Internal Server Error",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
-            )
-    }
-    )
-    //Ex Request: http://localhost:8080/api/fetch?mobileNumber=1234567890
-    @GetMapping(path = "/fetch")
-    public ResponseEntity<CustomerDto> fetchCustomerDetails(
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDto> createLoans(
             @RequestParam
             @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
             String mobileNumber) {
-        CustomerDto customerDto = iCustomerService.fetchCustomer(mobileNumber);
+        iLoansService.createLoan(mobileNumber);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(customerDto);
+                .status(HttpStatus.CREATED)
+                .body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
+    }
+
+
+    @Operation(
+            summary = "Fetch Loan Details REST API",
+            description = "REST API to fetch loan details based on a mobile number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/fetch")
+    public ResponseEntity<LoansDto> fetchLoanDetails(
+            @RequestParam
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+            String mobileNumber) {
+
+
+        LoansDto loansDto = iLoansService.fetchLoan(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(loansDto);
     }
 
     @Operation(
-            summary = "Update Customer Details REST API",
-            description = "REST API to update Customer details based on a mobile number"
+            summary = "Update Loan Details REST API",
+            description = "REST API to update loan details based on a loan number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -114,33 +106,23 @@ public class CustomerController {
             )
     }
     )
-    /*
-    Ex: http://localhost:8080/api/update
-        Method:Put
-        Body:
-        {
-        "name": "Javeed Ghani",
-        "email": "Javeed.ghani@nodomain.com",
-        "mobileNumber": "1234567890"
-        }
-     */
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateCustomerDetails(@Valid @RequestBody CustomerDto customerDto) {
-        boolean isUpdated = iCustomerService.updateCustomer(customerDto);
+    public ResponseEntity<ResponseDto> updateLoanDetails(@Valid @RequestBody LoansDto loansDto) {
+        boolean isUpdated = iLoansService.updateLoan(loansDto);
         if (isUpdated) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDto(CustomerConstants.STATUS_200, CustomerConstants.MESSAGE_200));
+                    .body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
         } else {
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(CustomerConstants.STATUS_417, CustomerConstants.MESSAGE_417_UPDATE));
+                    .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_UPDATE));
         }
     }
 
     @Operation(
-            summary = "Delete Customer Details REST API",
-            description = "REST API to delete Customer details based on a mobile number"
+            summary = "Delete Loan Details REST API",
+            description = "REST API to delete Loan details based on a mobile number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -160,20 +142,21 @@ public class CustomerController {
             )
     }
     )
-    //Ex: http://localhost:8080/api/delete?mobileNumber=1234567890
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteCustomerDetails(@RequestParam
-                                                             @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-                                                             String mobileNumber) {
-        boolean isDeleted = iCustomerService.deleteCustomer(mobileNumber);
+    public ResponseEntity<ResponseDto> deleteLoanDetails(
+            @RequestParam
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+            String mobileNumber) {
+
+        boolean isDeleted = iLoansService.deleteLoan(mobileNumber);
         if (isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDto(CustomerConstants.STATUS_200, CustomerConstants.MESSAGE_200));
+                    .body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
         } else {
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(CustomerConstants.STATUS_417, CustomerConstants.MESSAGE_417_DELETE));
+                    .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
     }
 
