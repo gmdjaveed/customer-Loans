@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.*;
 @OpenAPIDefinition(
 		info = @Info(
 				title = "Loans microservice REST API Documentation",
-				description = "Customer & Loans microservice REST API Documentation",
+				description = "Customers & Loans microservice REST API Documentation",
 				version = "v1",
 				contact = @Contact(
 						name = "Javeed Ghani",
@@ -27,7 +27,7 @@ import org.springframework.data.jpa.repository.config.*;
 				)
 		),
 		externalDocs = @ExternalDocumentation(
-				description =  "Customer & Loans microservice REST API Documentation",
+				description =  "Customers & Loans microservice REST API Documentation",
 				url = "https://www.nodomain.com/swagger-ui.html"
 		)
 )

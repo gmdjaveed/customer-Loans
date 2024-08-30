@@ -3,7 +3,7 @@
 
 Learn how to create enterprise and production ready Microservices with Spring, Spring Cloud, Docker and Kubernetes.
 
-## Features covered in the course
+## Features covered
 * Feature 1- Building microservices using Spring Boot
 * Feature 2 - Handle deployment, portability &  scalability of microservices using Docker
 * Feature 3 - Using MySQL DBs inside microservices
@@ -23,7 +23,37 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 
 ## Swagger endpoints
 ### Customer Microservice Swagger endpoint:
-```http://localhost:8080/swagger-ui/index.html
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ### Loans Microservice Swagger endpoint:
-```http://localhost:8090/swagger-ui/index.html
+```
+http://localhost:8090/swagger-ui/index.html
+```
+
+### Details:
+
+* Feature 1- Building microservices using Spring Boot
+```
+  - Build Customer and Loans microservices and run using Intellij and test through postman.
+```  
+* Feature 2 - Handle deployment, portability &  scalability of microservices using Docker
+```
+  - Different ways to dockerize the microservice applications.
+  - Customer : Use Dockerfile to build the docker image
+  - Loans : Use Maven plugin 'Buildpacks' to build the docker image. This does not required 'Dockerfile'
+  - Note: In later Feature versions we will use only 'Google Jib' (applicable only for Java) maven plugin to build docker images.
+  - Workspace:
+  - To build jar for each of the microservices from their root directory (open terminal from intellij), run below command
+  -- mvn clean install 
+```
+
+### Credit:
+```
+The credit for building these microservices applications with various features goes to Udemy tutor Madan Reddy for his 
+course '[NEW] Master Microservices with SpringBoot,Docker,Kubernetes' Develop Microservices with Java, Spring Boot, 
+Spring Cloud, Docker, Kubernetes, Helm, Microservices Security'
+
+Course URL : https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes/
+```
