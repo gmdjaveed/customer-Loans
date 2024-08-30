@@ -22,7 +22,7 @@ Learn how to create enterprise and production ready Microservices with Spring, S
 
 
 ## Swagger endpoints
-### Customer Microservice Swagger endpoint:
+### Customers Microservice Swagger endpoint:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
