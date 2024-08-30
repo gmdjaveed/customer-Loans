@@ -1,5 +1,5 @@
-# Build Customer and Loan Microservices with Spring Boot, Docker, Kubernetes step by step
-## Build different versions in increasing complexitity and features!
+# Build Customers and Loans Microservices with Spring Boot, Docker, Kubernetes step by step
+## Build different versions in increasing complexity and features!
 
 Learn how to create enterprise and production ready Microservices with Spring, Spring Cloud, Docker and Kubernetes.
 
@@ -36,12 +36,12 @@ http://localhost:8090/swagger-ui/index.html
 
 * Feature 1- Building microservices using Spring Boot
 ```
-  - Build Customer and Loans microservices and run using Intellij and test through postman.
+  - Build Customers and Loans microservices and run using Intellij and test through postman.
 ```  
 * Feature 2 - Handle deployment, portability &  scalability of microservices using Docker
 ```
   - Different ways to dockerize the microservice applications.
-  - Customer : Use Dockerfile to build the docker image
+  - Customers : Use Dockerfile to build the docker image
   - Loans : Use Maven plugin 'Buildpacks' to build the docker image. This does not required 'Dockerfile'
   - Note: In later Feature versions we will use only 'Google Jib' (applicable only for Java) maven plugin to build docker images.
   - Workspace:
