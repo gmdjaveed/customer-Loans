@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.javeed</groupId>
-	<artifactId>loans</artifactId>
+	<artifactId>cl-loans</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>loans</name>
 	<description>Loans Spring boot application</description>

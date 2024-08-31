@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.javeed</groupId>
-	<artifactId>customers</artifactId>
+	<artifactId>cl-customers</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>customers</name>
 	<description>Customers Spring boot application</description>
