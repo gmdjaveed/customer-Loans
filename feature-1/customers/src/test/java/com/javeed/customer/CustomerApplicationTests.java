@@ -1,10 +1,10 @@
-package com.javeed.customer;
+package com.javeed.customers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerApplicationTests {
+class CustomersApplicationTests {
 
 	@Test
 	void contextLoads() {
