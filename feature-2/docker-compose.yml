@@ -1,0 +1,26 @@
+services:
+  customers:
+    image: "gmdjaveed/cl-customers:f2"
+    container_name: cl-customers-ms
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - customer-loans
+  loans:
+    image: "gmdjaveed/cl-loans:f2"
+    container_name: cl-loans-ms
+    ports:
+      - 8090:8090
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - customer-loans
+networks:
+  customer-loans:
+    driver: "bridge"

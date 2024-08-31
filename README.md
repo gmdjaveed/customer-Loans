@@ -91,15 +91,18 @@ http://localhost:8090/swagger-ui/index.html
 ```  
 * Feature 2 - Handle deployment, portability &  scalability of microservices using Docker
 ```
-  - Different ways to dockerize the microservice applications.
+  (A) Different ways to dockerize the microservice applications:
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   - 1) Dockerfile 2) Buildpacks (Maven plugin) 3) Google Jib (Maven plugin)
   -- Dockerfile: Need to create Dockerfile and add all instructions.
   -- Buildpacks: Will take care of optimization, security, compression of docker file etc
   --             supports multiple langauges such as Java, NodeJs, Go, GraalVM, Python, NGNix, Php etc
-  -- Google Jib: Will take care of best practices, caches and smaller sizes. Applicable only for Java.
+  -- Google Jib: Will take care of best practices, performance, security, caching and smaller sizes. Applicable only for Java.
   -
-  - (a) Customers : Use Dockerfile to build the docker image
-  - (b) Loans : Use Maven plugin 'Buildpacks' to build the docker image. 
+  (B) Dockerize the microservice applications:
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  - (1) Customers : Use Dockerfile to build the docker image
+  - (2) Loans : Use Maven plugin 'Buildpacks' to build the docker image. 
   - Note: In later Feature versions we will use only 'Google Jib'.
   - Build and Test both microservices: 
   -- To build jar for each of the microservices from their root directory (use either cygwin or Intelij terminal), run below command
@@ -107,7 +110,7 @@ http://localhost:8090/swagger-ui/index.html
   -- $ mvn spring-boot:run (To start the application)
   -- OR $ java -jar target/cl-customers-0.0.1-SNAPSHOT.jar (To start the application)
   -
-  - (a) Customers: Steps to dockerize and run :
+  - (1) Customers: Steps to dockerize and run :
   - -----------------------------------------------
   -- Step 1. Create Application Jar file
   --- $ mvn clean install
@@ -119,6 +122,10 @@ http://localhost:8090/swagger-ui/index.html
   --- $ docker run -d -p 8080:8080 gmdjaveed/cl-customers:f2
   -- Step 5. Push image to docker hub
   --- $ docker push gmdjaveed/cl-customers:f2
+  -- Step 6. Optionally delete and Pull image from docker hub to test
+  --- $ docker images | grep cl-customers ->... dd481a0979c5
+  --- $ docker rmi dd481a0979c5
+  --- $ docker pull gmdjaveed/cl-customers:f2
   -
   -- Note ../customers/   (Note: you should have Dockerfile here)
   -- $ docker images (see your new image here)
@@ -130,7 +137,7 @@ http://localhost:8090/swagger-ui/index.html
   -- $ docker start/stop <container-id-  -- $ docker ps (To checkout running containers)
   -- $ docker push gmdjaveed/cl-customers:f2
   -
-  -   (b) Loans: Steps to dockerize and run :
+  - (2) Loans: Steps to dockerize and run :
   - -----------------------------------------------
   -- Step 1. Include the below maven plugin in pom.xml
     (Note: Use your own docker repository name inside pom.xml)
@@ -157,6 +164,22 @@ http://localhost:8090/swagger-ui/index.html
   --- $ docker push gmdjaveed/cl-loans:f2
   -- Step 6. Check out running containers.
   -- $ docker ps (To checkout running containers)
+  (C) Docker Compose to start/stop/remove all the microservice applications at once:
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  - Step 1) Create a 'docker-compose.yml' file
+  -- see */CustomerLoans/feature-2/docker-compose.yml
+  - Step 2) Start them all 
+  --   $ docker compose up
+  - Step 3) Verify them 
+  --   $ docker compose ps
+      NAME              IMAGE                       COMMAND                  SERVICE     CREATED         STATUS         PORTS
+    cl-customers-ms   gmdjaveed/cl-customers:f2   "java -jar cl-custom…"   customers   3 minutes ago   Up 3 minutes   0.0.0.0:8080->8080/tcp
+    cl-loans-ms       gmdjaveed/cl-loans:f2       "/cnb/process/web"       loans       3 minutes ago   Up 3 minutes   0.0.0.0:8090->8090/tcp
+  - Step 4) Stop them  
+  --   $ docker compose stop (do not remove the containers)   
+  --   $ docker compose down  (remove the containers)
+  - Step 5) Start them (If stopped) 
+  --   $ docker compose start
   
   > Workspace:
   > ----------- 
@@ -164,9 +187,9 @@ http://localhost:8090/swagger-ui/index.html
 
 ### Credit:
 ```
-The credit for building these microservices applications with various features goes to Udemy tutor Madan Reddy for his 
+- The credit for building these microservices applications with various features goes to Udemy tutor Madan Reddy for his 
 course '[NEW] Master Microservices with SpringBoot,Docker,Kubernetes' Develop Microservices with Java, Spring Boot, 
 Spring Cloud, Docker, Kubernetes, Helm, Microservices Security'
 
-Course URL : https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes/
+- Course URL : https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes/
 ```
